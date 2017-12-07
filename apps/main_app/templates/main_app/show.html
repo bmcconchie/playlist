@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>{{user.first_name}} {{user.last_name}} Playlist</h1>
+    <table>
+        <tr>
+            <th>Artist</th>
+            <th>Title</th>
+            <th>Times Added</th>
+        </tr>
+        {% for song in user.playlists.all %}
+        <tr>
+            <td>{{song.artist}}</td>
+            <td>{{song.title}}</td>
+            <td>{{song.count}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/main">Dashboard</a>
+    <a href="/logout">Logout</a>
+
+</body>
+
+</html>

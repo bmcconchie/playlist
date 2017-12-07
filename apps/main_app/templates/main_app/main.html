@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Hello {{user.first_name}} {{user.last_name}}</h1>
+    <h3>All the songs in our hub:</h3>
+
+    <table>
+        <tr>
+            <th>Artist</th>
+            <th>Title</th>
+            <th>No.of Times Song Has Been Added</th>
+            <th>Add to Playlist</th>
+        </tr>
+        {% for user in playlists %}
+        <tr>
+
+            <td>{{user.artist}}</td>
+            <td><a href="/main/song/{{user.id}}">{{user.title}}</a></td>
+            <td>{{user.users.all.count}}</td>
+            <form action="add/{{user.id}}" method="post">
+                {%csrf_token%}
+                <td><input type="submit" value="Add"></td>
+            </form>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <form action="/main/create" method="post">
+        {%csrf_token%}
+        <h3>Add a Song:</h3>
+        <p>Title: <input type="text" name="title"></p>
+        <p>Artist: <input type="text" name="artist"></p>
+        <input type="submit" name="Add Song">
+
+    </form>
+    {% if messages %} {% for message in messages %} {{message}} {%endfor%} {%endif%}
+    <a href="/logout">Logout</a>
+
+
+</body>
+
+</html>
